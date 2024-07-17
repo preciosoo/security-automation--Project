@@ -1,0 +1,12 @@
+# nmap_scan.py
+
+import subprocess
+
+def scan_network(network_range):
+    command = f"nmap -sV {network_range}"
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    print(result.stdout)
+
+if __name__ == "__main__":
+    network_range = "192.168.1.0/24"
+    scan_network(network_range)
