@@ -1,0 +1,10 @@
+#!/bin/bash
+# Script to automate vulnerability scans
+
+URL=$1
+REPORT_FILE="report_$(date +%Y%m%d_%H%M%S).json"
+
+python3 src/vuln_scanner.py $URL > tmp_scan_results.json
+python3 src/report_generator.py tmp_scan_results.json $REPORT_FILE
+
+echo "Scan completed and report generated: $REPORT_FILE"
