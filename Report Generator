@@ -1,0 +1,16 @@
+import json
+
+def generate_report(scan_results, report_file):
+    """Generates a report from scan results."""
+    with open(report_file, 'w') as file:
+        json.dump(scan_results, file, indent=4)
+    print(f"Report saved to {report_file}")
+
+if __name__ == "__main__":
+    sample_results = {
+        "url": "http://example.com",
+        "vulnerabilities": ["Server: Apache"],
+        "status": "URL is reachable"
+    }
+    generate_report(sample_results, "scan_report.json") 
+    
