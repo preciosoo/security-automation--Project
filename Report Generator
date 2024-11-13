@@ -1,10 +1,19 @@
 import json
+import os
+from datetime import datetime
 
 def generate_report(scan_results, report_file):
     """Generates a report from scan results."""
-    with open(report_file, 'w') as file:
-        json.dump(scan_results, file, indent=4)
-    print(f"Report saved to {report_file}")
+    try:
+        if os.path.exists(report_file):
+            print(f"Warning: {report_file} already exists and will be overwritten.")
+        with open(report_file, 'w') as file:
+            json.dump(scan_results, file, indent=4)
+        print(f"Report saved to {report_file}")
+        return True
+    except IOError as e:
+        print(f"Error saving report: {e}")
+        return False
 
 if __name__ == "__main__":
     sample_results = {
@@ -12,5 +21,5 @@ if __name__ == "__main__":
         "vulnerabilities": ["Server: Apache"],
         "status": "URL is reachable"
     }
-    generate_report(sample_results, "scan_report.json") 
-    
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    generate_report(sample_results, f"scan_report_{timestamp}.json")
